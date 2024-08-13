@@ -12,6 +12,10 @@ const dialogsOptions = {
     check: ()=>{
         let img = document.getElementById("myimage")
         return img.src
+    },
+    var: () =>{
+        let img = document.getElementById("myimage")
+        
     }
 }
 
