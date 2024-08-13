@@ -3,6 +3,11 @@ import dialogsOptions from './dialogOptions.js'
 const REBOLT = /^#.*#$/g;
 const RERED = /^\$.*\$$/g;
 
+let V = {
+    image: '',
+    light: false
+}
+
 const getData = async () => {
     const x = await fetch("./src/dialog.txt")
     const y = await x.text()
@@ -47,6 +52,21 @@ const optionConsole = ( str ) =>{
     if( isDialog ){
         insertText(`#${str}#`)
         cascadeDialog( dialogsOptions[str]() );
+    }
+    else if( str.search(/^[sS]et/g) != -1 ){
+        let arr = str.slice(4)
+        insertText(`#set#`)
+        try{ 
+            arr = arr.split(" ")
+            if( arr.length == 3 ){ 
+                V[arr[0]] = arr[2]
+                insertText(`Se ha cambiado el valor #${arr[0]}# a #${V[arr[0]]}#`)
+            }
+            else{
+                insertText(`La sintaxis es incorrecta, debes usar #set# seguido del nombre de la variable un '=' y su nuevo valor`)
+            }
+        }
+        catch(e){}
     }
     else if( str == "clear" || str == 'cls'){
         document.getElementById('msg').innerHTML = ''

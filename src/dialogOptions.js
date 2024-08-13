@@ -20,9 +20,6 @@ const dialogsOptions = {
         return `Valor imagen es = #${img.slice(result+1)}#
         Valor luz es = #false#
         `
-    },
-    set: () => {
-        
     }
 }
 
