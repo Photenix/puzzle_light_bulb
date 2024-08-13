@@ -13,8 +13,15 @@ const dialogsOptions = {
         let img = document.getElementById("myimage")
         return img.src
     },
-    var: () =>{
+    variables: () =>{
         let img = document.getElementById("myimage")
+        img = img.src
+        let result = img.search('\/Bom.*\.png$')
+        return `Valor imagen es = #${img.slice(result+1)}#
+        Valor luz es = #false#
+        `
+    },
+    set: () => {
         
     }
 }

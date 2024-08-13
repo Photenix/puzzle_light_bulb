@@ -69,6 +69,7 @@ h1 {
   color: #888;
 }
 
+/*
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -83,6 +84,7 @@ h1 {
     background-color: #f9f9f9;
   }
 }
+*/
 
 .switch {
   width: 100px;
@@ -158,6 +160,8 @@ input[type='checkbox'] {
 
   input {
     border: none;
+    color: white;
+    font-size: large;
     background-color: #1a1a1a;
     outline: none;
     width: 50%;
