@@ -1,4 +1,7 @@
-const REGEXT = /^#.*#$/g;
+import dialogsOptions from './dialogOptions.js'
+
+const REBOLT = /^#.*#$/g;
+const RERED = /^\$.*\$$/g;
 
 const getData = async () => {
     const x = await fetch("./src/dialog.txt")
@@ -10,9 +13,8 @@ const formatText = ( str ) =>{
     let jack = str.split(" ")
     for (let i = 0; i < jack.length; i++) {
         let element = jack[i];
-        if( element.search(REGEXT) != -1 ){
-            jack[i] = `<b>${element.replace(/#/g,'')}</b>`
-        }
+        if( element.search(REBOLT) != -1 ){ jack[i] = `<b>${element.replace(/#/g,'')}</b>` }
+        else if( element.search(RERED) != -1 ){ jack[i] = `<span>${element.replace(/\$/g,'')}</span>` }
     }
 
     return jack.join(" ")
@@ -23,33 +25,33 @@ const insertText = ( str ) =>{
     document.getElementById('msg').innerHTML += p
 }
 
-const optionConsole = ( str ) =>{
-    if( str == 'help' ){
-        insertText(`#${str}#`)
-        insertText('Hola querido programador veo que quieres prender el bombillo')
-        insertText('Necesitaras tres cosas para hacerlo')
-        insertText('1. Paciencia')
-        insertText('2. Debuggear codigo ajeno')
-        insertText('3. Saber que el archivo de bombillo se llama BombilloON.png')
-        insertText('Para ver las condiciones para lograr el reto escribe #find#')
+const cascadeDialog = ( str ) => {
+    try{
+        let arr = str.split('\n')
+        arr.forEach(element => {
+            insertText( element )
+        });
     }
-    else if( str == "find" ){
+    catch(error){
+        insertText( str + " " )
+    }
+}
+
+const optionConsole = ( str ) =>{
+    let isDialog = false
+
+    for (const key in dialogsOptions) {
+        if( key == str ) {isDialog = true; break}
+    }
+
+    if( isDialog ){
         insertText(`#${str}#`)
-        insertText('1. Tiene que mostrarse la imagen')
-        insertText('2. En el codigo debe estar true la luz')
+        cascadeDialog( dialogsOptions[str]() );
     }
     else if( str == "clear" || str == 'cls'){
         document.getElementById('msg').innerHTML = ''
     }
-    else if( str == "check" ){
-        let img = document.getElementById("myimage")
-        console.log( img.src );
-    }
-    else{
-      insertText(
-        `El comando #${str}# no esta registrado`
-      )
-    }
+    else{ insertText( `El comando #${str}# no esta registrado` ) }
   }
 
 export { getData, insertText, optionConsole }

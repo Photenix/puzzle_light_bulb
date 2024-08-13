@@ -31,7 +31,7 @@ const handlePress = ( event ) => {
 }
 
 const createConsole = () =>{
-  document.getElementById('game').innerHTML += `<div id="console"> ><input type="text" id="console-input"> </div>`
+  document.getElementById('game').innerHTML += `<label for="console-input" id="console"> ><input type="text" id="console-input" autocomplete="off"> </div>`
   let input = document.getElementById('console-input')
   input.addEventListener('keypress', handlePress)
 }
@@ -48,7 +48,7 @@ document.querySelector('#app').innerHTML += `
     </label>
     <input type="checkbox" name="switch" id="switch" checked>
   </div>
-  <img src=${bombillaOFF} alt="" width="400" id='myimage'>
+  <img src=${bombillaOFF} alt="" width="350" id='myimage'>
 `
 
 const switchAction = document.getElementById('action')
