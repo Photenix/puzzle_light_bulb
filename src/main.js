@@ -2,7 +2,8 @@ import './style.css'
 
 import player from './fourWall'
 import { getData, insertText, optionConsole } from './dialogController'
-import bombillaOFF from '../public/BombillaOFF.png'
+import bombillaOFF from '/BombillaOFF.png'
+import bombillaON from '/BombillaON.png'
 
 let dataText = ''
 let countText = 0

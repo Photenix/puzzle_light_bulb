@@ -3,10 +3,13 @@ import dialogsOptions from './dialogOptions.js'
 const REBOLT = /^#.*#$/g;
 const RERED = /^\$.*\$$/g;
 
+
 let V = {
     image: '',
     light: false
 }
+
+window.V = V;
 
 const getData = async () => {
     const x = await fetch("./src/dialog.txt")
@@ -56,11 +59,20 @@ const optionConsole = ( str ) =>{
     else if( str.search(/^[sS]et/g) != -1 ){
         let arr = str.slice(4)
         insertText(`#set#`)
+        insertText(`${arr}`)
         try{ 
             arr = arr.split(" ")
+            // Esta compuesto por 3 partes set = "variable"
             if( arr.length == 3 ){ 
-                V[arr[0]] = arr[2]
-                insertText(`Se ha cambiado el valor #${arr[0]}# a #${V[arr[0]]}#`)
+                insertText(`Se ha cambiado el valor #${arr[0]}# a #${arr[2]}#`)
+                let variable = arr[0], value = arr[2];
+                if( (variable == "luz" || variable == "light") && ( value == "true" || value == "false" )){
+                    V["light"] = arr[2] === "true"
+                }
+                else if( variable == "image" || variable == "imagen" ){
+                    V["image"] = value
+                    document.getElementById("myimage").src = "/" + value
+                }
             }
             else{
                 insertText(`La sintaxis es incorrecta, debes usar #set# seguido del nombre de la variable un '=' y su nuevo valor`)
