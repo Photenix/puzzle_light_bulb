@@ -12,9 +12,8 @@ let V = {
 window.V = V;
 
 const getData = async () => {
-    const x = await fetch("./src/dialog.txt")
-    const y = await x.text()
-    return y.split('\n')
+    const x = dialogsOptions["init"]()
+    return x.split('\n')
 }
 
 const formatText = ( str ) =>{
@@ -24,7 +23,6 @@ const formatText = ( str ) =>{
         if( element.search(REBOLT) != -1 ){ jack[i] = `<b>${element.replace(/#/g,'')}</b>` }
         else if( element.search(RERED) != -1 ){ jack[i] = `<span>${element.replace(/\$/g,'')}</span>` }
     }
-
     return jack.join(" ")
 }
 
@@ -64,14 +62,31 @@ const optionConsole = ( str ) =>{
             arr = arr.split(" ")
             // Esta compuesto por 3 partes set = "variable"
             if( arr.length == 3 ){ 
-                insertText(`Se ha cambiado el valor #${arr[0]}# a #${arr[2]}#`)
+                // insertText(`Se ha cambiado el valor #${arr[0]}# a #${arr[2]}#`)
                 let variable = arr[0], value = arr[2];
                 if( (variable == "luz" || variable == "light") && ( value == "true" || value == "false" )){
-                    V["light"] = arr[2] === "true"
+                    let s = document.getElementById("switch")
+                    if( arr[2] === "true" ){
+                        s.checked = false; s.disabled = true
+                        V["light"] = true
+                        insertText('El swiche se $atasco$ ahora no se puede mover pero ahora hay luz (´• ω •`)ﾉ')
+                    }
+                    else{
+                        s.checked = true; s.disabled = false
+                        V["light"] = false
+                    }
                 }
                 else if( variable == "image" || variable == "imagen" ){
-                    V["image"] = value
-                    document.getElementById("myimage").src = "/" + value
+                    if( value == "BombillaON.png" && ( V["light"] )){
+                        V["image"] = value
+                        document.getElementById("myimage").src = "/" + value
+                    }
+                    else if( value == "BombillaON.png" ){
+                        insertText("Se tiene que primero arreglar la luz para prender la luz ¯\\_(ツ)_/¯")
+                    }
+                    else{
+                        insertText(`La imagen con el nombre #${variable}# no esta disponible, recuerde colocar la extension del archivo`)
+                    }
                 }
             }
             else{

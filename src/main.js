@@ -3,7 +3,6 @@ import './style.css'
 import player from './fourWall'
 import { getData, insertText, optionConsole } from './dialogController'
 import bombillaOFF from '/BombillaOFF.png'
-import bombillaON from '/BombillaON.png'
 
 let dataText = ''
 let countText = 0
@@ -11,7 +10,7 @@ let light = false
 getData().then( txt => dataText = txt )
 
 const handleButton = (event) =>{
-  if( countText < dataText.length && !(player.welcome) ){
+  if( countText < dataText.length && !(player?.welcome) ){
     insertText( dataText[countText] )
     countText++
     if( countText == dataText.length ){
@@ -37,7 +36,7 @@ const createConsole = () =>{
   input.addEventListener('keypress', handlePress)
 }
 
-if( player.welcome ){
+if( player?.welcome ){
   createConsole()
 }
 

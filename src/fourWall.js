@@ -6,10 +6,10 @@ if( player == null ){
     localStorage.setItem('MyLight', JSON.stringify({ welcome: false }))
 }
 
-player = JSON.parse( player )
+player = JSON.parse( localStorage.getItem("MyLight") )
 
 
-if( player.welcome ){
+if( player?.welcome ){
     insertText('Bienvenido ¿vienes a terminar el reto?')
 }
 
